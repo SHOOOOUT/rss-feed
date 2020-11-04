@@ -1,2 +1,2 @@
 # rss-feed
-Zennのトレンド記事一覧を毎朝Slackに通知します
+Zennのトレンド記事一覧を定期的にSlackに通知します
