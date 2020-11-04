@@ -35,11 +35,24 @@ func main() {
 	IncomingURL := os.Getenv("INCOMINGURL")
 
 	c := cron.New()
-	c.AddFunc("0 9 * * * *", func() {
+	c.AddFunc("0 22 * * *", func() {
+		params := Slack{
+			Text:      "今日のトレンド記事です！！",
+			Username:  "Zenn bot",
+			IconEmoji: ":zenn:",
+		}
+		jsonparams, _ := json.Marshal(params)
+		resp, _ := http.PostForm(
+			IncomingURL,
+			url.Values{"payload": {string(jsonparams)}},
+		)
+		defer resp.Body.Close()
+	})
+	c.AddFunc("0 22 * * *", func() {
 		for i, _ := range items {
 			params := Slack{
 				Text:      "「" + items[i].Title + "」" + "\n" + items[i].Link + "\n" + "---------------------------------------",
-				Username:  "鉄人28号",
+				Username:  "お知らせ係",
 				IconEmoji: ":28:",
 			}
 
